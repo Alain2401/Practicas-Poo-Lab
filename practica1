@@ -1,0 +1,117 @@
+package Practica1;
+
+import java.util.Scanner;
+
+public class promedio{
+
+	static Scanner scanner = new Scanner(System.in);
+	public static void main (String[]args) {
+	   int opc = 0;
+	   int acum = 0;
+	   double sum = 0;
+	   double cali;
+	   
+	   System.out.println("Cantidad: ");
+	   int cant = scanner.nextInt();
+		 double [] Calif = new double[cant];
+		 String [] Nombres = new String[cant];
+		 while(acum < cant) {
+			 System.out.println("Digita calificacion "+(acum+1)+": ");
+			 cali = scanner.nextDouble();
+			 scanner.nextLine();
+			 System.out.println("Escriba el nombre "+(acum+1)+":");
+			 String name = scanner.nextLine();
+
+			 Calif[acum] = cali;
+			 Nombres[acum]=name;
+			 sum += cali;
+			 acum++;
+		 }
+		 do {
+	   System.out.println("---Calificaciones---");
+	   System.out.println("1. Captura de nombre y calificaciones.");
+	   System.out.println("2. Imprimir calificaciones y promedio de calificaciones.");
+	   System.out.println("3. Imprimir calificaciones y calificación más baja.");
+	   System.out.println("4. Imprimir calificaciones y calificación más alta.");
+	   System.out.println("5. Salir.");
+	   
+	   System.out.println();
+	   
+	   System.out.println("Digite una opcion:");
+	   opc=scanner.nextInt();
+	   switch(opc) {
+			case 1:
+				captura(Calif,Nombres);
+				break;
+			case 2:
+				imprimir_prom(Calif,Nombres,cant,sum);
+				break;
+			case 3:
+				imprimir_menor(Calif,Nombres);
+				break;
+			case 4:
+				imprimir_mayor(Calif,Nombres);
+				break;
+			case 5:
+				System.out.println("Programa terminado.");
+				
+				break;
+				
+				default:
+					System.out.println("Opcion invalida, vuelve a intentar.");
+					System.out.println();
+			}
+		 }
+	   while(opc!=5);
+   	
+  }
+  
+   
+   static void captura(double Calif[],String Nombres[]) {
+	   
+		System.out.println("Las calificaciones son: ");
+		for(int i=0; i<Calif.length;i++) {
+			System.out.println(" Nombre: "+Nombres[i]+" | Calificación: "+Calif[i]);
+		}
+			
+	}
+   
+   
+   static void imprimir_prom(double Calif[],String Nombres[],int j,double sum) {
+		System.out.println("Las calificaciones son: ");
+		for(int i=0; i<j;i++) {
+			System.out.println("Nombre: "+Nombres[i]+"| Calificación: "+Calif[i]);
+		}
+		double prome = sum/j;
+		System.out.println("El promedio es: "+prome);
+		
+		
+	}
+	static void imprimir_menor(double Calif[],String Nombres[]) {
+		double menor = Calif [1];
+		System.out.println("Las calificaciones son: ");
+		for(int i=0; i<Calif.length;i++) {
+			System.out.println("Nombre: "+Nombres[i]+"| Calificación: "+Calif[i]);
+		}
+		for(int i=0;i<Calif.length;i++) {
+			if(Calif[i]<menor) {
+				menor = Calif[i];
+			}
+		}
+		System.out.println("La calificación menor es: "+menor);
+	}
+	static void imprimir_mayor(double Calif[], String Nombres[]) {
+		double mayor = Calif[1];
+		System.out.println("Las calificaciones son: ");
+		for(int i=0; i<Calif.length;i++) {
+			System.out.println(" Nombre: "+Nombres[i]+" | Calificación: "+Calif[i]);
+		}
+		for(int i=0;i<Calif.length;i++) {
+			if(Calif[i]>mayor) {
+				mayor = Calif[i];
+			}
+		}
+		System.out.println("La calificación mayor es: "+mayor);
+	}
+   	
+}
