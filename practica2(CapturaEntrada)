@@ -1,0 +1,58 @@
+package Practica2;
+
+public class Estudiante {
+
+	String nombre;
+	int control;
+	String materia;
+	double cali;
+	String estado;
+	
+	public Estudiante(String nombre, int control, String materia, float cali) {
+		setNombre(nombre);
+		setControl(control);
+		setMateria(materia);
+		setCali(cali);
+		AsignarEstado();
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void setControl(int control) {
+		this.control = control;
+	}
+	public void setMateria(String materia) {
+		this.materia = materia;
+	}
+	public void setCali(double cali) {
+		this.cali = cali;
+	}
+		
+	public String getNombre(){
+		return nombre;
+	}
+	public int getControl() {
+		return control;
+	}
+	public String getMateria() {
+		return materia;
+	}
+	public double getCali() {
+		return cali;
+	}
+	
+	public String AsignarEstado(){
+		if(cali >= 60)
+        {
+            estado = "Aprobado";
+        }
+        else
+        {
+            estado = "Reprobado";
+        }
+		return estado;
+    }
+	
+	
+}
