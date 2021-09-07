@@ -1,0 +1,425 @@
+package pratica3;
+
+public class prac3{
+	public static void main(String[] args) {
+        Mexicano[] persona = new Mexicano[2];
+        
+        for(int i=0;i<2;i++)
+        {
+            System.out.println("Mexicano " + (i+1));
+            persona[i] = new Mexicano();
+        }
+        System.out.println("CURP: " + persona[0].getCURP());
+        System.out.println("RFC: " + persona[1].getRFC());
+        System.out.println("CURP y RFC : "+ persona[1].getCURP() + "\n Y "+ persona[1].getRFC());
+}
+}
+
+//Clase Mexicano
+
+package pratica3;
+
+import java.util.Random;
+
+public class Mexicano {
+    String nom;
+    String nom2;
+    String ap;
+    String am;
+    char sexo;
+    int dia;
+    int mes;
+    int year;
+    String lugar;
+    String CURP;
+    String RFC;
+    private final String homoclave = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+    public Mexicano()
+    {
+        setNom(CapturaEntrada.capturarCadena("Primer nombre"));
+        setNom2(CapturaEntrada.capturarCadena("Segundo nombre"));
+        setAp(CapturaEntrada.capturarCadena("Apellido paterno"));
+        setAm(CapturaEntrada.capturarCadena("Apellido materno"));
+        setSexo(CapturaEntrada.capturarCadena("Sexo").charAt(0)); 
+        setDia(CapturaEntrada.capturarEntero("Dia"));
+        setMes(CapturaEntrada.capturarEntero("Mes"));
+        setYear(CapturaEntrada.capturarEntero("Año"));
+        setLugarr(CapturaEntrada.capturarCadena("Lugar"));
+        generarCURP(generar());
+        generarRFC(generar());
+        
+        
+    }
+    public void setNom(String nom)
+    {
+        this.nom = nom;
+    }
+    public String getNom()
+    {
+        return nom;
+    }
+    public void setNom2(String nom2)
+    {
+       this.nom2 = nom2;
+    }
+    public String getNom2()
+    {
+        return nom2;
+    }
+    public void setAm(String am)
+    {
+        this.am = am;
+    }
+    public String getAm()
+    {
+        return am;
+    }
+    public void setAp(String ap)
+    {
+        this.ap = ap;
+    }
+    public String getAp()
+    {
+        return ap;
+    }
+    public void setSexo(char sexo)
+    {
+        this.sexo = sexo;
+    }
+    public char getSexo()
+    {
+        return sexo;
+    }
+    public void setDia(int dia)
+    {
+        this.dia = dia;
+    }
+    public int getDia()
+    {
+        return dia;
+    }
+    public void setMes(int mes)
+    {
+        this.mes = mes;
+    }
+        public int getMes()
+    {
+        return mes;
+    }
+    public void setYear(int year)
+    {
+        this.year = year;
+    }
+    public int getYear()
+    {
+        return year;
+    }
+    public void setLugarr(String lugaar)
+    {
+        lugaar = lugaar.trim().toLowerCase(); 
+        switch(lugaar) 
+        {
+            case "aguascalientes" ->
+            {
+                lugar = "AS";            
+            }
+            case "baja california" ->
+            {
+                lugar = "BC";             
+            }
+            case "baja california sur" ->
+            {
+                lugar = "BS";            
+            }
+            case "campeche" ->
+            {
+                lugar = "CC";           
+            }
+            case "coahuila" ->
+            {
+                lugar = "CL";           
+            }
+            case "colima" ->
+            {
+                lugar = "CM";           
+            }
+            case "chiapas" ->
+            {
+                lugar = "CS";          
+            }
+            case "chihuahua" ->
+            {
+                lugar = "CH";           
+            }
+            case "distrito federal" ->
+            {
+                lugar = "DF";           
+            }
+            case "durango" -> 
+            {
+                lugar = "DG";            
+            }
+            case "guanajuato" -> 
+            {
+                lugar = "GT";            
+            }
+            case "guerrero" ->
+            {
+                lugar = "GR";           
+            }
+            case "hidalgo" ->  
+            {
+                lugar = "HG";           
+            }
+            case "jalisco" ->         
+            {
+                lugar = "JC";          
+            }
+            case "mexico" ->           
+            {
+                lugar = "MC";             
+            }
+            case "michoacan" ->         
+            {
+                lugar = "MN";           
+            }
+            case "morelos" ->           
+            {
+                lugar = "MS";            
+            }
+            case "nayarit" ->           
+            {
+                lugar = "NT";           
+            }
+            case "nuevo leon" ->           
+            {
+                lugar = "NL";         
+            }
+            case "oaxaca" ->            
+            {
+                lugar = "OC";           
+            }
+            case "puebla" ->             
+            {
+                lugar = "PL";           
+            }
+            case "queretaro" ->            
+            {
+                lugar = "QT";           
+            }
+            case "quintana roo" ->          
+            {
+                lugar = "QR";           
+            }
+            case "san luis potosi" ->         
+            {
+                lugar = "SP";            
+            }
+            case "sinaloa" ->           
+            {
+                lugar = "SL";           
+            }
+            case "sonora" ->            
+            {
+                lugar = "SR";          
+            }
+            case "tabasco" ->            
+            {
+                lugar ="TC";           
+            }
+            case "tamaulipas" ->          
+            {
+                lugar = "TS";           
+            }
+            case "tlaxcala" ->            
+            {
+                lugar = "TL";           
+            }
+            case "veracruz" ->            
+            {
+                lugar = "VZ";            
+            }
+            case "yucatan" ->            
+            {
+                lugar = "YN";            
+            }
+            case "zacatecas" ->
+            {
+                lugar = "ZC";            
+            }
+            case "nacido en el extranjero" ->
+            {
+                lugar = "NE";            
+            }
+        }
+    }
+
+    public String generar() 
+    {
+        String curpp;
+        if(ap.toLowerCase().charAt(0) == 'ñ') 
+        {
+             curpp = "X"; 
+        }
+        else
+        {
+             curpp = String.valueOf(ap.toLowerCase().charAt(0)); 
+         }
+        for(int i = 1; i< ap.length();i++)
+        {
+            if(ap.charAt(i) == 'a'|| ap.charAt(i) == 'e' || ap.charAt(i) == 'i'|| ap.charAt(i) == 'o'|| ap.charAt(i) == 'u')
+            {
+                curpp+= String.valueOf(ap.charAt(i));
+                break; 
+            }
+        }
+        if(am.equals("0")) 
+        {
+            curpp+="x"; 
+        }
+        else
+        {
+            curpp+= am.charAt(0); 
+        }
+        if(nom.trim().toLowerCase().equals("maria")|| nom.trim().toLowerCase().equals("jose"))
+        {
+            curpp+= String.valueOf(nom2.charAt(0)); 
+        }
+        else
+        {
+            curpp+= String.valueOf(nom.charAt(0)); 
+        }
+        if(curpp.toLowerCase().equals("popo")|| curpp.toLowerCase().equals("hola")| curpp.toLowerCase().equals("pipi")||curpp.toLowerCase().equals("tonto"))
+        {
+           curpp = String.valueOf(curpp.charAt(0)) + String.valueOf(curpp.charAt(1)) + String.valueOf(curpp.charAt(2)) + "X";
+        }
+        String yearr = String.valueOf(year);
+        curpp+= String.valueOf(yearr.charAt(yearr.length()-2)) + String.valueOf(yearr.charAt(yearr.length()-1)); 
+        if(mes >= 1 && mes <= 9) 
+        {
+            curpp+= "0" + String.valueOf(mes); 
+        }
+        else
+        {
+            curpp+= String.valueOf(mes);
+        }
+        if(dia >= 1 && dia <= 9)
+        {
+            curpp+= "0" + String.valueOf(dia); 
+        }
+        else
+        {
+            curpp+= String.valueOf(dia);
+        }
+        return curpp; 
+        
+    }   
+    public void generarCURP(String curp)  
+    {
+        curp = curp.toLowerCase(); 
+        curp += String.valueOf(sexo); 
+        curp+= lugar;
+        for(int i = 1; i< ap.length();i++)
+        {
+            if(ap.toLowerCase().charAt(i) != 'a' && ap.toLowerCase().charAt(i) != 'e' && ap.toLowerCase().charAt(i) != 'i' && ap.toLowerCase().charAt(i) != 'o' && ap.toLowerCase().charAt(i) != 'u')
+            { 
+                if(ap.toLowerCase().charAt(i) == 'ñ')
+                {
+                    curp+="x"; 
+                }
+                else
+                {
+                    curp+= String.valueOf(ap.charAt(i)); 
+                    
+                }
+                break; 
+            }
+        }
+        if(am.equals("0"))
+        {
+            curp+="x"; 
+        }
+        else
+        {
+            for(int i = 1; i< am.length();i++)
+            {
+                if(am.charAt(i) != 'a' && am.charAt(i) != 'e' && am.charAt(i) != 'i'&& am.charAt(i) != 'o'&& am.charAt(i) != 'u')
+                {
+                    curp+= String.valueOf(am.charAt(i)); 
+                    break; 
+                }
+            }
+        }
+        for(int i = 1; i< nom.length();i++)
+        {
+            if(nom.charAt(i) != 'a' && nom.charAt(i) != 'e' && nom.charAt(i) != 'i' && nom.charAt(i) != 'o'&& nom.charAt(i) != 'u')
+            {
+                curp+= String.valueOf(nom.charAt(i)); 
+                break; 
+            }
+        }
+        StringBuilder homo = new StringBuilder(); 
+        Random aleatorio = new Random(); 
+        while (homo.length() < 2)
+        {
+            int index = (int) (aleatorio.nextFloat() * homoclave.length());
+            homo.append(homoclave.charAt(index));
+        }
+         curp+= homo.toString();
+        CURP = curp.toUpperCase();
+    }
+    public void generarRFC(String rfc)
+    {
+        StringBuilder homo = new StringBuilder(); 
+        Random aleatorio = new Random(); 
+        while (homo.length() < 3) 
+        {
+            int index = (int) (aleatorio.nextFloat() * homoclave.length());
+            homo.append(homoclave.charAt(index));
+        }
+         rfc+= homo.toString();
+        RFC = rfc.toUpperCase();
+    }
+    public String getCURP()
+    {
+        return CURP;
+    }
+    public String getRFC()
+    {
+        return RFC;
+    }
+}	
+
+//Clase CapturaEntrada
+
+package pratica3;
+
+import java.util.Scanner;
+
+public class CapturaEntrada {
+	public static int capturarEntero(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextInt());
+    }
+
+    public static float capturarFlotante(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextFloat());
+    }
+
+    public static double capturarDoble(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextDouble());
+    }
+
+    public static String capturarCadena(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextLine());
+    }
+
+}
