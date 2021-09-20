@@ -1,0 +1,176 @@
+------------------Clase Pajaro---------------------
+public abstract class Pajaro {
+	private String nombre;
+	private String poder;
+	private String tamanio;
+	
+	public Pajaro(String nombre, String poder, String tamanio)
+	{
+		this.nombre = nombre;
+		this.poder = poder;
+		this.tamanio = tamanio;
+	}
+	
+	public String getNombre()
+	{
+		return nombre;
+	}
+	
+	public void getTama()
+	{
+		System.out.println("\nMi tamaño es " + tamanio);
+
+	}
+	
+	public abstract void getPoder(); 
+	public abstract void get1erAparicion();
+	public abstract void getAlcance();
+  
+}
+
+------------------Clase Red---------------------
+public class Red extends Pajaro {
+    
+    public Red()
+	{
+		super("Red Bird", "Sable de Luz, empujón de la Fuerza, disminuir velocidad y daño", " Medio");
+	}
+	
+	public void getPoder() 
+	{
+		System.out.print("\nSable de Luz, empujón de la Fuerza, disminuir velocidad y daño");
+	}
+	
+	public void get1erAparicion()
+	{
+		System.out.print("\nPoached Eggs 1-1 (Angry Birds)");
+	}
+	
+	public void getAlcance()
+	{
+		System.out.print("\nMedio");
+	}
+    
+}
+
+------------------Clase Chuck---------------------
+public class Chuck extends Pajaro{
+	public Chuck()
+	{
+		super("Pájaro Amarillo", "Aceleración , targetPoint, disparo Laser", "Mediano");
+	}
+	
+	public void getPoder() 
+	{
+		System.out.print("\nAceleración , targetPoint, disparo Laser");
+	}
+	
+	public void get1erAparicion()
+	{
+		System.out.print("\nPoached Eggs 1-16");
+	}
+	
+	public void getAlcance()
+	{
+		System.out.print("\nNormal");
+	}
+}
+
+------------------Clase Hal---------------------
+public class Hal extends Pajaro{
+	public Hal()
+	{
+		super(" Pájaro boomerang", "Giro regresivo como un boomerang", "Grande");
+	}
+	
+	public void getPoder() 
+	{
+		System.out.print("\nGiro regresivo como un boomerang");
+	}
+	
+	public void get1erAparicion()
+	{
+		System.out.print("\nDanger Above 6-5");
+	}
+	
+	public void getAlcance()
+	{
+		System.out.print("\nLargo");
+	}
+}
+
+------------------Clase main---------------------
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args)
+	{
+		byte pajarraco = 0, opcion = 4;
+		Scanner entrada = new Scanner(System.in);
+		
+		Pajaro[] p = new Pajaro[3]; 
+		
+		p[0] = new Red(); 
+		p[1] = new Chuck();
+		p[2] = new Hal();
+		
+		do 
+		{
+			if(opcion == 4) 
+				pajarraco = getPajarraco(p, entrada);
+			 
+			else
+			{
+				entrada.nextLine();
+				entrada.nextLine();
+			}
+			
+			System.out.print("\n");
+
+			
+			System.out.println("1. Ver poder del personaje");
+			System.out.println("2. Ver primera aparicion del personaje");
+			System.out.println("3. Ver alcance del personaje");
+			System.out.println("4. Cambiar");
+			System.out.println("5. Salir");
+			
+			System.out.println("\nOpcion: ");
+			opcion = entrada.nextByte();
+			
+			switch(opcion) 
+			{	
+				case 1: p[pajarraco].getPoder();	
+				break;
+				
+				case 2: p[pajarraco].get1erAparicion();		
+				break;
+				
+				case 3:	p[pajarraco].getAlcance();			
+			}	
+			
+		}while(opcion != 5); 
+		
+		entrada.close(); 
+	}
+	
+	public static byte getPajarraco(Pajaro[] p, Scanner entrada) 
+	{
+		byte pajarraco; 
+		
+		do 
+		{
+			System.out.print("\nPersonajes\n\n" );
+			
+			System.out.println("1. " + p[0].getNombre());
+			System.out.println("2. " + p[1].getNombre());
+			System.out.println("3. " + p[2].getNombre() );
+			
+			System.out.println("Escoge tu pajaro: ");
+			pajarraco = entrada.nextByte();
+			
+		}while(pajarraco < 1 || pajarraco >3);
+	
+		return --pajarraco; 
+	}
+       
+}
