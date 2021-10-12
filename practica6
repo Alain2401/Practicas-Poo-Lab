@@ -1,0 +1,232 @@
+--------------------------Clase Equipo-------------------
+import java.util.Random;
+
+public class Equipo {
+    String nameEquipo;
+    int division;
+    String entrenador;
+    int torneosTotales;
+    int torneosGanados;
+    int torneosPerdidos;
+    Jugador jugadores[] = new Jugador[10];
+
+    public void setNameEquipo(String nombre){
+        nameEquipo = nombre;
+    }
+    public void setDivision(int division){
+        this.division = division;
+    }
+    public void setEntrenador(String entrenador){
+        this.entrenador = entrenador;
+    }
+    public void setTorneosTotales(int torneosT){
+        torneosTotales = torneosT;
+    }
+    public void setTorenosGanados(int torneosG){
+        torneosGanados = torneosG;
+    }
+    public void setTorneosPerdidos(int torneosP){
+        torneosPerdidos = torneosP;
+    }
+    public void setJugadores(int numEquipo){
+        System.out.println("Capturando jugadores del equipo " +(numEquipo+1));
+        Random r = new Random();
+        for(int i=0;i<jugadores.length;i++){
+            jugadores[i] = new Jugador();
+        }
+        for(int i=0;i<jugadores.length;i++){
+            jugadores[i].setNombre(CapturaEntrada.capturarCadena("Nombre"));
+            if(numEquipo!=0){
+                for(int j=0;j<numEquipo;j++){
+                    for(int k=0;k<jugadores.length;k++){
+                        while(jugadores[i].getNombreJugador().equals(Torneo.equipos[j].jugadores[k].getNombreJugador())){
+                            jugadores[i].setNombre(CapturaEntrada.capturarCadena("Otro nombre"));
+                        }
+                    }
+                }
+            }
+            jugadores[i].setNumJugador(CapturaEntrada.capturarEntero("Numero del jugador"));
+            for(int z=0;z<i;z++){
+                while(jugadores[i].getNumJugador() == jugadores[z].getNumJugador()){
+                    jugadores[i].setNumJugador(CapturaEntrada.capturarEntero("Otro numero del jugador"));
+                }
+            }
+            if(i<=5){
+                jugadores[i].setPosicion("Delantero");
+            }
+            else{
+                jugadores[i].setPosicion("Defensa");
+            }
+            jugadores[i].setEstatura(r.nextInt(200-170)+170);
+            jugadores[i].setpuntosAnotados(r.nextInt(50));
+        }
+    }
+    public String getNameEquipo(){
+        return nameEquipo;
+    }
+    public int getDivision(){
+        return division;
+    }
+    public int puntosTotales(){
+        int puntosT = 0;
+        for(Jugador j: jugadores){
+            puntosT+= j.getPuntosAnotados();
+        }
+        return puntosT;
+    }
+    public int jugadoresTotales(){
+        return jugadores.length;
+    }
+}
+-----------------------Clase Jugador------------------------
+public class Jugador {
+    int NumJugador;
+    String nombre;
+    int puntosAnotados;
+    String posicion;
+    double estatura;
+
+    public void setNumJugador(int num){
+        NumJugador = num;
+    }
+    public void setNombre(String nomb){
+        nombre = nomb;
+    }
+    public void setpuntosAnotados(int puntos){
+        puntosAnotados = puntos;
+    }
+    public void setPosicion(String pos){
+        posicion = pos;
+    }
+    public void setEstatura(double estatura){
+        this.estatura = estatura;
+    }
+    public int getNumJugador(){
+        return NumJugador;
+    }
+    public String getNombreJugador(){
+        return nombre;
+    }
+
+    public int getPuntosAnotados(){
+        return puntosAnotados;
+    }
+
+}
+---------------------Clase Torneo----------------------
+public class Torneo {
+    String NombreTorneo;
+    String region;
+    int numeroEquipos;
+    int partidosJugados;
+    int partidosPendientes;
+    static Equipo equipos[] = new Equipo[5];
+
+    public Torneo(){
+        setNombreTorneo("NBA CHAMPIONS");
+        setRegion("Tijuana");
+        setPartidosJugados(5);
+        numeroEquipos = equipos.length;
+        setPartidosPendientes(15);
+        addEquipos();
+    }
+    public void setNombreTorneo(String nombre){
+        NombreTorneo = nombre;
+    }
+    public void setRegion(String region){
+        this.region = region;
+    }
+
+    public void setPartidosJugados(int partidos){
+        partidosJugados = partidos;
+    }
+
+    public void setPartidosPendientes(int partidos){
+        partidosPendientes = partidos;
+    }
+    public void addEquipos(){
+        for(int i=0;i<equipos.length;i++){
+            equipos[i] = new Equipo();
+            equipos[i].setNameEquipo(CapturaEntrada.capturarCadena("Nombre del Equipo"));
+            equipos[i].setDivision(1);
+            equipos[i].setEntrenador(CapturaEntrada.capturarCadena("Nombre del entrenador"));
+            equipos[i].setTorenosGanados(CapturaEntrada.capturarEntero("Torneos ganados"));
+            equipos[i].setTorneosPerdidos(CapturaEntrada.capturarEntero("Torneos perdidos"));
+            equipos[i].setTorneosTotales(CapturaEntrada.capturarEntero("Torneos totales"));
+            equipos[i].setJugadores(i);
+        }
+
+    }
+    public int getNumeroEquipos(){
+        return equipos.length;
+    }
+    public String getNombretorneo(){
+        return NombreTorneo;
+    }
+    public String getRegion(){
+        return region;
+    }
+    public int getPartidosJugados(){
+        return partidosJugados;
+    }
+    public int getPartidosPendientes(){
+        return partidosPendientes;
+    }
+}
+--------------------------Clase CapturaEntrada------------------------------
+import java.util.Scanner;
+
+public class CapturaEntrada {
+    public static int capturarEntero(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextInt());
+    }
+
+    public static float capturarFlotante(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextFloat());
+    }
+
+    public static double capturarDoble(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextDouble());
+    }
+
+    public static String capturarCadena(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextLine());
+
+    }
+    public static char capturarChar(String msg)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextLine().charAt(0));
+    }
+}
+---------------------------------Clase main-------------------------------
+public class main {
+
+    public static void main(String[] args) {
+        Torneo torn = new Torneo();
+
+        System.out.println("Nombre del torneo: " +torn.getNombretorneo() +"\nRegion: " + torn.getRegion());
+        System.out.println("Equipos particiapantes: " + torn.getNumeroEquipos());
+        System.out.println("Partidos jugados: " +torn.getPartidosJugados()+ "\nPartido pendientes: "+torn.getPartidosPendientes());
+
+        for(int i=0;i<Torneo.equipos.length;i++){
+            System.out.println("Nombre del equipo :"+ Torneo.equipos[i].getNameEquipo());
+            System.out.println("Division "+ Torneo.equipos[i].getDivision());
+            System.out.println("Cantidad de jugadores " + Torneo.equipos[i].jugadoresTotales());
+            System.out.println("Puntos obtenidos: " + Torneo.equipos[i].puntosTotales());
+            for(int j=0;j<Torneo.equipos[i].jugadores.length;j++){
+                System.out.println("Jugador: " + Torneo.equipos[i].jugadores[j].getNombreJugador());
+                System.out.println("Numero del jugador: " + Torneo.equipos[i].jugadores[j].getNumJugador());
+            }
+        }
+    }
+}
