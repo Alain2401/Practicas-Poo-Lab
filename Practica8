@@ -1,0 +1,306 @@
+-------------Clase Animal:-----------
+public class Animal {
+    String nombre;
+    int anio;
+    boolean vacuna;
+    public Animal(String nombre, int anio){
+        this.nombre = nombre;
+        this.anio = anio;
+    }
+
+    public void eat(){
+        System.out.println(nombre +" esta comiendo");
+    }
+
+    public void sleep(){
+        System.out.println(nombre + " esta durmiendo");
+    }
+
+    public void setVacuna(boolean vacuna){
+        this.vacuna = vacuna;
+    }
+}
+
+
+------------Clase CapturaEntrada:-----------------
+import java.util.Scanner;
+
+public class CapturaEntrada {
+
+    public static int capturaEntero(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextInt());
+    }
+    public static float capturaFlotante(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextFloat());
+    }
+    public static double capturaDoble(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextDouble());
+    }
+
+    public static String capturaCadena(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextLine());
+    }
+}
+
+------------------Clase Cat:-------------------------
+public class Cat extends Animal{
+
+    public Cat(String nombre, int anio){
+        super(nombre,anio);
+    }
+    @Override
+    public void eat(){
+        System.out.println("El gato " + nombre + " esta comiendo whiskas");
+    }
+    public void aruñar(){
+        System.out.println("El gato " + nombre + " esta aruñando");
+    }
+}
+
+---------------------Clase Conejo:-------------------------
+public class Conejo extends Animal{
+
+    public Conejo(String nombre, int edad){
+        super(nombre, edad);
+    }
+    @Override
+    public void eat(){
+        System.out.println(nombre + "está comiendo zanahoria");
+    }
+
+    public void saltar(){
+        System.out.println(nombre + "esta saltando");
+    }
+}
+
+-----------------Clase Dog:----------------------
+public class Dog extends Animal{
+
+    public Dog(String nombre, int anio){
+        super(nombre,anio);
+    }
+    @Override
+    public void eat(){
+        System.out.println("El perro " + nombre + " esta comiendo pedigree");
+    }
+    public void recogerPelota(){
+        System.out.println(nombre + " recogio la pelota");
+    }
+    public void ladrar(){
+        System.out.println(nombre + " ladra woof woof");
+    }
+}
+
+-------------------Clase Oveja:----------------------
+public class Oveja extends Animal{
+
+    public Oveja(String nombre, int edad){
+        super(nombre, edad);
+    }
+    @Override
+    public void eat(){
+        System.out.println(nombre + "está comiendo cesped");
+    }
+
+    public void run(){
+        System.out.println(nombre + "se fue galopando");
+    }
+}
+
+------------------Clase Pajaro:------------------------
+public class Pajaro extends Animal{
+
+    public Pajaro(String nombre, int edad){
+        super(nombre, edad);
+    }
+    @Override
+    public void eat(){
+        System.out.println(nombre + "está comiendo alpiste");
+    }
+
+    public void volar(){
+        System.out.println(nombre + "se fue volando");
+    }
+}
+
+---------------------Clase Vaca:--------------------
+public class Vaca extends Animal{
+
+    public Vaca(String nombre, int edad){
+        super(nombre, edad);
+    }
+    @Override
+    public void eat(){
+        System.out.println(nombre + "está pastando");
+    }
+
+    public void leche(){
+        System.out.println(nombre + "esta siendo ordeñada");
+    }
+}
+
+---------------------Clase Veterinarian:----------------------
+public class Veterinarian {
+    private String nombre;
+    private double salario;
+
+    public Veterinarian(String nombre, double salario){
+        setSalario(salario);
+        setNombre(nombre);
+    }
+
+    public void setSalario(double salario){
+        this.salario = salario;
+    }
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public double getSalario(){
+        return salario;
+    }
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void vacunar(Animal a){
+        a.setVacuna(true);
+    }
+
+    public void revisar(Animal a){
+        if(a.vacuna){
+            System.out.println(a.nombre + " esta vacunado");
+        }
+        else{
+            System.out.println(a.nombre + " no esta vacunado");
+        }
+    }
+}
+
+---------------------Clase Zoo:------------------------
+import java.util.ArrayList;
+
+public class Zoo {
+
+    private ArrayList<Animal> animales = new ArrayList<>();
+    private Veterinarian v = new Veterinarian(CapturaEntrada.capturaCadena("Nombre del veterinario"),CapturaEntrada.capturaDoble("Salario"));
+
+    public void agregar(String animal){
+
+        animal = animal.trim().toLowerCase();
+        Animal a = null;
+        switch(animal){
+            case "perro" -> {
+                a = new Dog(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            case "gato" -> {
+                a = new Cat(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            case "oveja" -> {
+                a = new Oveja(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            case "conejo" -> {
+                a = new Conejo(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            case "pajaro" -> {
+                a = new Pajaro(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            case "vaca" -> {
+                a = new Vaca(CapturaEntrada.capturaCadena("Nombre"),CapturaEntrada.capturaEntero("Edad"));
+                break;
+            }
+            default -> {
+                System.out.println("Error, volver a intentar");
+            }
+        }
+        if(a != null){
+            animales.add(a);
+        }
+    }
+
+    public void imprimir(){
+        for(Animal a: animales){
+            a.eat();
+            v.vacunar(a);
+            v.revisar(a);
+            if(a instanceof Dog){
+                ((Dog)a).ladrar();
+            }
+            else if(a instanceof Cat){
+                ((Cat)a).aruñar();
+            }
+            else if(a instanceof Oveja){
+                ((Oveja)a).run();
+            }
+            else if(a instanceof Conejo){
+                ((Conejo)a).saltar();
+            }
+            else if(a instanceof Pajaro){
+                ((Pajaro)a).volar();
+            }
+            else if(a instanceof Vaca){
+                ((Vaca)a).leche();
+            }
+            System.out.println();
+        }
+    }
+
+    public void quitar(){
+        int i = 1, op;
+
+        for(Animal a: animales){
+
+            System.out.println("Numero de animal: " + i);
+            System.out.print(a.nombre + "\n");
+            i++;
+        }
+        op = CapturaEntrada.capturaEntero("Introducir el numero: ");
+        animales.remove((op-1));
+        System.out.println("Animal borrado.");
+    }
+}
+
+--------------------Clase main:------------------------
+public class main {
+
+    public static void main(String[] args) {
+
+        int op;
+        Zoo zoo = new Zoo();
+        do{
+            System.out.println("Elegir opcion ");
+            System.out.println("1) Añadir");
+            System.out.println("2) Eliminar");
+            System.out.println("3) Mostrar");
+            System.out.println("4) Salir");
+            op = CapturaEntrada.capturaEntero("Opcion");
+            switch(op){
+                case 1:{
+                    zoo.agregar(CapturaEntrada.capturaCadena("Agregar"));
+                    break;
+                }
+                case 2:{
+                    zoo.quitar();
+                    break;
+                }
+                case 3:{
+                    zoo.imprimir();
+                    break;
+                }
+            }
+        }while(op!=4);
+    }
+}
