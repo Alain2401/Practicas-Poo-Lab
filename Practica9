@@ -1,0 +1,150 @@
+-----------------------Clase Alumno:------------------------
+import java.io.Serializable;
+
+public class Alumno implements Serializable{
+    private String nombre;
+    private String matri;
+    float prom;
+
+    float calificaciones[] = new float[7];
+
+    public Alumno(){
+        setNombre(CapturaEntrada.capturaCadena("Nombre del alumno"));
+        setMatri(CapturaEntrada.capturaCadena("Matricula"));
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+    public void setMatri(String mat){
+        matri = mat;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public String getMatri(){
+        return matri;
+    }
+
+    public void CalProm(){
+        prom = 0;
+        for(int i = 0;i<calificaciones.length;i++){
+            prom+=calificaciones[i];
+        }
+        prom/=calificaciones.length;
+    }
+
+    public void ImprimirAlumno(){
+        System.out.println("Nombre de alumno: " + nombre);
+        System.out.println("Matricula: " + matri);
+        System.out.println("Calificaciones: ");
+        for(int i=0;i<calificaciones.length;i++){
+            System.out.println(calificaciones[i]);
+        }
+        System.out.println("Promedio final: " + prom);
+    }
+}
+
+-------------------------Clase CapturaEntrada:-------------------------
+import java.util.Scanner;
+
+public class CapturaEntrada {
+    public static int capturaEntero(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextInt());
+    }
+    public static float capturaFlotante(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextFloat());
+    }
+    public static double capturaDoble(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextDouble());
+    }
+
+    public static String capturaCadena(String msg){
+        Scanner sc = new Scanner(System.in);
+        System.out.print(""+msg+": ");
+        return (sc.nextLine());
+    }
+}
+
+----------------------Clase Leer:-----------------------
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Leer {
+    public int calificaciones[] = new int[21];
+    public void LeerArchivoCSV(){
+        String line;
+        String path = "C:\\Users\\Alain\\Desktop\\POO\\practica9.csv";
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            try {
+                while((line = br.readLine())!= null){
+                    String num[] = line.split(",");
+                    num[0] = String.valueOf(num[0].charAt(1)) + String.valueOf(num[0].charAt(2)) ;
+                    for(int i = 0; i<num.length;i++){
+                        calificaciones[i] = Integer.parseInt(num[i]);
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("No se puede leer el archivo" + ex);
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("No se puede abrir el archivo" + e);
+        }
+    }
+}
+
+---------------------------Clase Escribir:----------------------------------
+import java.io.*;
+
+public class Escribir {
+
+    public void EscribirArchivo(Alumno alum[]){
+        try{
+            ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream("CalifiAlumnos.bin"));
+            for(int i = 0; i<alum.length; i++){
+                s.writeObject(alum[i]);
+            }
+            s.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("El archivo se ha generado exitosamente.");
+    }
+}
+
+---------------------------------Clase Main:----------------------------
+public class Main {
+
+    public static void main(String[] args) {
+        Alumno alum[] = new Alumno[3];
+        Leer LA = new Leer();
+        Escribir EA = new Escribir();
+        LA.LeerArchivoCSV();
+        int z = 0;
+        for(int i = 0; i<alum.length;i++){
+            alum[i] = new Alumno();
+            for(int j = 0; j< alum[0].calificaciones.length ; j++){
+                alum[i].calificaciones[j] = LA.calificaciones[z];
+                z++;
+            }
+            alum[i].CalProm();
+        }
+        for (Alumno alumno : alum) {
+            alumno.ImprimirAlumno();
+        }
+        EA.EscribirArchivo(alum);
+    }
+}
